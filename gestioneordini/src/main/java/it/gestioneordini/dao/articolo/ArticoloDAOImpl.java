@@ -59,6 +59,13 @@ public class ArticoloDAOImpl implements ArticoloDAO {
 		query.setParameter("categoria", categoriaInput);
 		return query.getResultList();
 	}
+	
+	public List<Articolo> getEagerCategoria (Categoria categoriaInput) throws Exception{
+		TypedQuery<Articolo> query = entityManager
+				.createQuery("select a from Articolo a left join fetch a.categorie c where c.id =?1", Articolo.class);
+		query.setParameter(1, categoriaInput.getId());
+		return query.getResultList();
+	}
 
 
 }

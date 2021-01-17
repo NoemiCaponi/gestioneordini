@@ -125,7 +125,21 @@ public class ArticoloServiceImpl implements ArticoloService {
 	@Override
 	public void creaECollegaArticoloECategoria(Articolo articoloTransientInstance, Categoria categoriaTransientInstance)
 			throws Exception {
-		// TODO Auto-generated method stub
+		EntityManager entityManager=EntityManagerUtil.getEntityManager();
+		try {
+			entityManager.getTransaction().begin();
+			
+			articoloDAO.setEntityManager(entityManager);
+			articoloTransientInstance.getCategorie().add(categoriaTransientInstance);
+			articoloDAO.insert(articoloTransientInstance);
+			
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		}
+
 
 	}
 
@@ -136,8 +150,20 @@ public class ArticoloServiceImpl implements ArticoloService {
 
 	@Override
 	public List<Articolo> caricaSingoloArticoloConCategoria(Categoria categoriaInput) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+
+			articoloDAO.setEntityManager(entityManager);
+			return articoloDAO.getEagerCategoria(categoriaInput);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			entityManager.close();
+		}
+	
 	}
 
 }

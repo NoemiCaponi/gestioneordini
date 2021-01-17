@@ -28,7 +28,7 @@ public class Articolo {
 	private String descrizione;
 	@Column (name="prezzoSingolo")
 	private int prezzoSingolo;
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ordine_id")
 	private Ordine ordine;
 	
@@ -98,6 +98,6 @@ public class Articolo {
 		categoriaInstance.getArticoliCategoria().remove(this);
 	}
 
-	
+
 
 }

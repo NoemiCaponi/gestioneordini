@@ -3,7 +3,7 @@ package it.gestioneordini.dao.categoria;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-
+import javax.persistence.TypedQuery;
 import it.gestioneordini.model.Categoria;
 
 public class CategoriaDAOImpl implements CategoriaDAO {
@@ -39,8 +39,11 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	}
 
 	@Override
-	public void delete(Categoria o) throws Exception {
-		// TODO Auto-generated method stub
+	public void delete(Categoria categoriaInstance) throws Exception {
+		if (categoriaInstance == null) {
+			throw new Exception("Valore di input non ammesso");
+		}
+		entityManager.remove(entityManager.merge(categoriaInstance));
 		
 	}
 
@@ -49,5 +52,14 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		this.entityManager=entityManager;
 		
 	}
+
+	@Override
+	public Categoria findByDescrizione(String descrizioneInput) throws Exception {
+		TypedQuery<Categoria> query = entityManager.createQuery("select c FROM Categoria c where c.descrizione = :descrizione", Categoria.class);
+		query.setParameter("descrizione", descrizioneInput);
+		return query.getResultStream().findFirst().orElse(null);
+	}
+	
+	
 
 }

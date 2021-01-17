@@ -48,12 +48,29 @@ public class Test {
 //			for(Categoria categoriaItem: categoriaServiceInstance.listAll()) {
 //				System.out.println(categoriaItem);
 //			}
-			Ordine ordineDaInserire=ordineServiceInstance.caricaSingoloElemento(1L);
-			Articolo articoloDaInserireInOrdine=articoloServiceInstance.caricaSingoloElemento(1L);
-			if(ordineDaInserire!=null) {
-				ordineServiceInstance.aggiungiArticolo(ordineDaInserire, articoloDaInserireInOrdine);
-			}
 			
+			Articolo articoloProva=new Articolo("telefono", 450);
+//			Categoria categoriaProva=new Categoria("telefonia");
+//			articoloServiceInstance.creaECollegaArticoloECategoria(articoloProva, categoriaProva);
+//			for(Articolo articoloItem:articoloServiceInstance.caricaSingoloArticoloConCategoria(categoriaProva))
+//				System.out.println(articoloItem);
+			
+			ordineServiceInstance.creaECollegaOrdineArticolo(articoloProva, ordineInstance);
+
+			for(Ordine ordineItem: ordineServiceInstance.caricaSingoloOrdineConArticolo(articoloProva))
+				System.out.println(ordineItem);
+			
+//			Ordine ordineDaInserire=ordineServiceInstance.caricaSingoloElemento(1L);
+//			System.out.println(ordineDaInserire);
+//			Articolo articoloDaInserireInOrdine=articoloServiceInstance.caricaSingoloElemento(1L);
+//			System.out.println(articoloDaInserireInOrdine);
+//			if(ordineDaInserire!=null) {
+//				ordineServiceInstance.aggiungiArticolo(ordineDaInserire, articoloDaInserireInOrdine);
+//				System.out.println("fatto");
+//			}
+//			
+			
+
 			
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -63,4 +80,6 @@ public class Test {
 				EntityManagerUtil.shutdown();
 			}
 		}
+	
+	
 }

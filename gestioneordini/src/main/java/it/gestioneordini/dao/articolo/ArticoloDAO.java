@@ -8,6 +8,8 @@ import it.gestioneordini.model.Categoria;
 
 public interface ArticoloDAO extends IBaseDAO<Articolo> {
 	
+	public List<Articolo> getEagerCategoria (Categoria categoriaInput) throws Exception;
+	
 	public List<Articolo> findAllByCategoria(Categoria categoriaInput);
 
 }

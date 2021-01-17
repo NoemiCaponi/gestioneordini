@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import it.gestioneordini.dao.EntityManagerUtil;
 import it.gestioneordini.dao.ordine.OrdineDAO;
 import it.gestioneordini.model.Articolo;
+import it.gestioneordini.model.Categoria;
 import it.gestioneordini.model.Ordine;
 
 public class OrdineServiceImpl implements OrdineService {
@@ -124,6 +125,7 @@ public class OrdineServiceImpl implements OrdineService {
 			articoloInstance = entityManager.merge(articoloInstance);
 
 			ordineInstance.getArticoli().add(articoloInstance);
+			
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
@@ -136,7 +138,20 @@ public class OrdineServiceImpl implements OrdineService {
 	@Override
 	public void creaECollegaOrdineArticolo(Articolo articoloTransientInstance, Ordine ordineTransientInstance)
 			throws Exception {
-		// TODO Auto-generated method stub
+		EntityManager entityManager=EntityManagerUtil.getEntityManager();
+		try {
+			entityManager.getTransaction().begin();
+			
+			ordineDAO.setEntityManager(entityManager);
+			ordineTransientInstance.getArticoli().add(articoloTransientInstance);
+			ordineDAO.insert(ordineTransientInstance);
+			
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 
@@ -148,8 +163,20 @@ public class OrdineServiceImpl implements OrdineService {
 
 	@Override
 	public List<Ordine> caricaSingoloOrdineConArticolo(Articolo articoloInput) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+
+			ordineDAO.setEntityManager(entityManager);
+			return ordineDAO.getEagerArticolo(articoloInput);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			entityManager.close();
+		}
 	}
+	
 
 }

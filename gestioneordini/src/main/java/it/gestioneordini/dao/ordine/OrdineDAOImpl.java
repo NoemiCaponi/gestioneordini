@@ -3,7 +3,10 @@ package it.gestioneordini.dao.ordine;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
+import it.gestioneordini.model.Articolo;
 import it.gestioneordini.model.Ordine;
 
 public class OrdineDAOImpl implements OrdineDAO {
@@ -42,6 +45,9 @@ public class OrdineDAOImpl implements OrdineDAO {
 		if (ordineInstance== null) {
 			throw new Exception("Problema valore in input");
 		}
+		Query query=entityManager.createQuery("delete from Articolo where ordine_id=?1");
+		query.setParameter(1,ordineInstance.getId()).executeUpdate();
+		
 		entityManager.remove(entityManager.merge(ordineInstance));
 
 
@@ -51,6 +57,12 @@ public class OrdineDAOImpl implements OrdineDAO {
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 
+	}
+	
+	public List<Ordine> getEagerArticolo (Articolo articoloInput) throws Exception{
+		TypedQuery<Ordine> query=entityManager.createQuery("select o from Ordine o left join fetch o.articoli a where a.id =?1", Ordine.class);
+		query.setParameter(1, articoloInput.getId());
+		return query.getResultList();
 	}
 
 }

@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import it.gestioneordini.dao.EntityManagerUtil;
 import it.gestioneordini.dao.categoria.CategoriaDAO;
+import it.gestioneordini.model.Articolo;
 import it.gestioneordini.model.Categoria;
 
 public class CategoriaServiceImpl implements CategoriaService {
@@ -102,6 +103,44 @@ public class CategoriaServiceImpl implements CategoriaService {
 	public void setCategoriaDAO(CategoriaDAO categoriaDAO) {
 		this.categoriaDAO=categoriaDAO;
 		
+	}
+
+	@Override
+	public void aggiungiArticolo(Categoria categoriaInstance, Articolo articoloInstance) throws Exception {
+		EntityManager entityManager=EntityManagerUtil.getEntityManager();
+		
+		try {
+			entityManager.getTransaction().begin();
+			
+			categoriaDAO.setEntityManager(entityManager);
+			categoriaInstance=entityManager.merge(categoriaInstance);
+			articoloInstance=entityManager.merge(articoloInstance);
+			
+			categoriaInstance.getArticoliCategoria().add(articoloInstance);
+			entityManager.getTransaction().commit();
+			
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		}
+
+		
+	}
+
+	@Override
+	public Categoria findAllByDescrizione(String descrizioneInput) throws Exception {
+		
+		EntityManager entityManager=EntityManagerUtil.getEntityManager();
+		
+		try {
+			categoriaDAO.setEntityManager(entityManager);
+			return categoriaDAO.findByDescrizione(descrizioneInput);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 }
