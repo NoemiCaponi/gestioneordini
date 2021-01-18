@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.gestioneordini.dao.ordine.OrdineDAO;
 import it.gestioneordini.model.Articolo;
+import it.gestioneordini.model.Categoria;
 import it.gestioneordini.model.Ordine;
 
 public interface OrdineService {
@@ -23,4 +24,6 @@ public interface OrdineService {
 	public void setOrdineDAO(OrdineDAO ordineDAO);
 	
 	public List<Ordine> caricaSingoloOrdineConArticolo (Articolo articoloInput) throws Exception; 
+	
+	public List<Ordine> caricaOrdineConCategoria (Categoria categoriaInput) throws Exception;
 }

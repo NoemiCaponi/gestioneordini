@@ -191,5 +191,23 @@ public class ArticoloServiceImpl implements ArticoloService {
 		}
 	
 	}
+	
+	public Long calcolaSommaArticoliByCategoria (Categoria categoriaInstance) throws Exception{
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+			
+			articoloDAO.setEntityManager(entityManager);
+			 
+			return articoloDAO.findSommaArticoliByCategoria(categoriaInstance);
+			 
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			throw e;
+		} finally {
+			entityManager.close();
+		}
+	}
 
 }

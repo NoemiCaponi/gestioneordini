@@ -30,5 +30,7 @@ public interface ArticoloService {
 	public void collegaArticoloEOrdine(Articolo articoloInstance, Ordine ordineInstance) throws Exception;
 	
 	public List<Articolo> caricaSingoloArticoloConCategoria (Categoria categoriaInput) throws Exception; 
+	
+	public Long calcolaSommaArticoliByCategoria (Categoria categoriaInstance) throws Exception;
 
 }

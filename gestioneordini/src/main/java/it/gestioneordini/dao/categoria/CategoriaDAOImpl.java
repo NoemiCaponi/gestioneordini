@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import it.gestioneordini.model.Categoria;
+import it.gestioneordini.model.Ordine;
 
 public class CategoriaDAOImpl implements CategoriaDAO {
 	
@@ -61,5 +62,11 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		return query.getResultStream().findFirst().orElse(null);
 	}
 	
-	
+	@Override
+	public List<Categoria> findByArticoloEOrdine(Ordine ordineInput) throws Exception{
+		TypedQuery<Categoria> query= entityManager.createQuery("select c from Categoria c inner join c.articoliCategoria a inner join a.ordine o where o=:ordine", Categoria.class);
+		query.setParameter("ordine", ordineInput);
+		return query.getResultList();
+				
+	}
 }

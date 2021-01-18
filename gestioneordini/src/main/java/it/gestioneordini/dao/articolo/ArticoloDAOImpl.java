@@ -54,7 +54,7 @@ public class ArticoloDAOImpl implements ArticoloDAO {
 
 	}
 	
-	public List<Articolo> findAllByCategoria(Categoria categoriaInput) {
+	public List<Articolo> findAllByCategoria(Categoria categoriaInput) throws Exception{
 		TypedQuery<Articolo> query = entityManager.createQuery("select a FROM Articolo a left join a.categorie c where c = :categoria", Articolo.class);
 		query.setParameter("categoria", categoriaInput);
 		return query.getResultList();
@@ -66,6 +66,12 @@ public class ArticoloDAOImpl implements ArticoloDAO {
 		query.setParameter(1, categoriaInput.getId());
 		return query.getResultList();
 	}
-
+	
+ public Long findSommaArticoliByCategoria(Categoria categoriaInput) throws Exception{
+	 TypedQuery<Long> query = entityManager
+				.createQuery("select sum(a.prezzoSingolo) from Articolo a join a.categorie c where c=: categoria", Long.class);
+					query.setParameter("categoria", categoriaInput);
+		return query.getSingleResult();
+ }
 
 }

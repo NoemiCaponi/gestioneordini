@@ -10,6 +10,7 @@ import it.gestioneordini.dao.articolo.ArticoloDAO;
 import it.gestioneordini.dao.categoria.CategoriaDAO;
 import it.gestioneordini.model.Articolo;
 import it.gestioneordini.model.Categoria;
+import it.gestioneordini.model.Ordine;
 
 public class CategoriaServiceImpl implements CategoriaService {
 	
@@ -158,4 +159,19 @@ public class CategoriaServiceImpl implements CategoriaService {
 		}
 	}
 
+	@Override
+	public List<Categoria> trovaByArticoloEOrdine(Ordine ordineInput) throws Exception {
+		EntityManager entityManager=EntityManagerUtil.getEntityManager();
+		
+		try {
+			categoriaDAO.setEntityManager(entityManager);
+			return categoriaDAO.findByArticoloEOrdine(ordineInput);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import it.gestioneordini.dao.categoria.CategoriaDAO;
 import it.gestioneordini.model.Articolo;
 import it.gestioneordini.model.Categoria;
+import it.gestioneordini.model.Ordine;
 
 public interface CategoriaService {
 
@@ -24,5 +25,5 @@ public interface CategoriaService {
 	
 	public Categoria findAllByDescrizione(String descrizioneInput)throws Exception;
 	
-	//public List<Articolo> caricaSingoloArticoloConCategoria (Categoria categoriaInput) throws Exception; 
+	public List<Categoria> trovaByArticoloEOrdine(Ordine ordineInput) throws Exception;
 }

@@ -10,6 +10,8 @@ public interface ArticoloDAO extends IBaseDAO<Articolo> {
 	
 	public List<Articolo> getEagerCategoria (Categoria categoriaInput) throws Exception;
 	
-	public List<Articolo> findAllByCategoria(Categoria categoriaInput);
+	public List<Articolo> findAllByCategoria(Categoria categoriaInput) throws Exception;
+	
+	 public Long findSommaArticoliByCategoria(Categoria categoriaInput) throws Exception;
 
 }

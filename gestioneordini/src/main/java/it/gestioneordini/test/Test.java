@@ -1,5 +1,7 @@
 package it.gestioneordini.test;
 
+import java.util.List;
+
 import it.gestioneordini.dao.EntityManagerUtil;
 import it.gestioneordini.model.Articolo;
 import it.gestioneordini.model.Categoria;
@@ -54,8 +56,8 @@ public class Test {
 //			Ordine ordineInstance2=ordineServiceInstance.caricaSingoloElemento(1L);
 //			articoloServiceInstance.collegaArticoloEOrdine(articoloProva, ordineInstance2);
 			
-		/*	Categoria categoriaProva=categoriaServiceInstance.caricaSingoloElemento(1L);
-			articoloServiceInstance.creaECollegaArticoloECategoria(articoloProva, categoriaProva);
+			Categoria categoriaProva=categoriaServiceInstance.caricaSingoloElemento(1L);
+		/*	articoloServiceInstance.creaECollegaArticoloECategoria(articoloProva, categoriaProva);
 			for(Articolo articoloItem:articoloServiceInstance.caricaSingoloArticoloConCategoria(categoriaProva))
 				System.out.println(articoloItem);*/
 			
@@ -65,14 +67,24 @@ public class Test {
 //				System.out.println(articoloItem);
 //			}
 //			
-			Categoria categoriaDaEliminare=categoriaServiceInstance.caricaSingoloElemento(2L);
-			categoriaServiceInstance.rimuovi(categoriaDaEliminare);
-			for(Categoria categoriaItem:categoriaServiceInstance.listAll()) {
-				System.out.println(categoriaItem);
-			}
+//			Categoria categoriaDaEliminare=categoriaServiceInstance.caricaSingoloElemento(2L);
+//			categoriaServiceInstance.rimuovi(categoriaDaEliminare);
+//			for(Categoria categoriaItem:categoriaServiceInstance.listAll()) {
+//				System.out.println(categoriaItem);
+//			}
+					
+//			List<Ordine> listaPerCategoria=ordineServiceInstance.caricaOrdineConCategoria(categoriaProva);
+//			for(Ordine ordineItem:listaPerCategoria) {
+//				System.out.println(ordineItem);
+//			}
+//			Ordine ordineDaCercare=ordineServiceInstance.caricaSingoloElemento(2L);
+//			List<Categoria> lista2=categoriaServiceInstance.trovaByArticoloEOrdine(ordineDaCercare);
+//			for(Categoria categoriaItem:lista2) {
+//				System.out.println(categoriaItem);
+//			}
 			
-			
-			
+			Categoria categoriaDaSommare=categoriaServiceInstance.caricaSingoloElemento(3L);
+			System.out.println("La somma: "+articoloServiceInstance.calcolaSommaArticoliByCategoria(categoriaDaSommare));
 	
 
 //			for(Ordine ordineItem: ordineServiceInstance.caricaSingoloOrdineConArticolo(articoloProva))
