@@ -5,6 +5,7 @@ import java.util.List;
 import it.gestioneordini.dao.articolo.ArticoloDAO;
 import it.gestioneordini.model.Articolo;
 import it.gestioneordini.model.Categoria;
+import it.gestioneordini.model.Ordine;
 
 
 
@@ -25,6 +26,8 @@ public interface ArticoloService {
 	public void creaECollegaArticoloECategoria(Articolo articoloTransientInstance, Categoria categoriaTransientInstance) throws Exception;
 
 	public void setArticoloDAO(ArticoloDAO articoloDAO);
+	
+	public void collegaArticoloEOrdine(Articolo articoloInstance, Ordine ordineInstance) throws Exception;
 	
 	public List<Articolo> caricaSingoloArticoloConCategoria (Categoria categoriaInput) throws Exception; 
 

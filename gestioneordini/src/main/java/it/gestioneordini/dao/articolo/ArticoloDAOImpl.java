@@ -55,7 +55,7 @@ public class ArticoloDAOImpl implements ArticoloDAO {
 	}
 	
 	public List<Articolo> findAllByCategoria(Categoria categoriaInput) {
-		TypedQuery<Articolo> query = entityManager.createQuery("select a FROM Articolo a join a.categorie c where c = :categoria", Articolo.class);
+		TypedQuery<Articolo> query = entityManager.createQuery("select a FROM Articolo a left join a.categorie c where c = :categoria", Articolo.class);
 		query.setParameter("categoria", categoriaInput);
 		return query.getResultList();
 	}

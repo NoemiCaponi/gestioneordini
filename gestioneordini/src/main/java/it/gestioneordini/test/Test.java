@@ -49,16 +49,34 @@ public class Test {
 //				System.out.println(categoriaItem);
 //			}
 			
-			Articolo articoloProva=new Articolo("telefono", 450);
-//			Categoria categoriaProva=new Categoria("telefonia");
-//			articoloServiceInstance.creaECollegaArticoloECategoria(articoloProva, categoriaProva);
-//			for(Articolo articoloItem:articoloServiceInstance.caricaSingoloArticoloConCategoria(categoriaProva))
-//				System.out.println(articoloItem);
+			Articolo articoloProva= articoloServiceInstance.caricaSingoloElemento(8L);
+			//articoloServiceInstance.inserisciNuovo(articoloProva);
+//			Ordine ordineInstance2=ordineServiceInstance.caricaSingoloElemento(1L);
+//			articoloServiceInstance.collegaArticoloEOrdine(articoloProva, ordineInstance2);
 			
-			ordineServiceInstance.creaECollegaOrdineArticolo(articoloProva, ordineInstance);
+		/*	Categoria categoriaProva=categoriaServiceInstance.caricaSingoloElemento(1L);
+			articoloServiceInstance.creaECollegaArticoloECategoria(articoloProva, categoriaProva);
+			for(Articolo articoloItem:articoloServiceInstance.caricaSingoloArticoloConCategoria(categoriaProva))
+				System.out.println(articoloItem);*/
+			
+//			Articolo articoloDaEliminare=articoloServiceInstance.caricaSingoloElemento(7L);
+//			articoloServiceInstance.rimuovi(articoloDaEliminare);
+//			for(Articolo articoloItem: articoloServiceInstance.listAll()) {
+//				System.out.println(articoloItem);
+//			}
+//			
+			Categoria categoriaDaEliminare=categoriaServiceInstance.caricaSingoloElemento(2L);
+			categoriaServiceInstance.rimuovi(categoriaDaEliminare);
+			for(Categoria categoriaItem:categoriaServiceInstance.listAll()) {
+				System.out.println(categoriaItem);
+			}
+			
+			
+			
+	
 
-			for(Ordine ordineItem: ordineServiceInstance.caricaSingoloOrdineConArticolo(articoloProva))
-				System.out.println(ordineItem);
+//			for(Ordine ordineItem: ordineServiceInstance.caricaSingoloOrdineConArticolo(articoloProva))
+//				System.out.println(ordineItem);
 			
 //			Ordine ordineDaInserire=ordineServiceInstance.caricaSingoloElemento(1L);
 //			System.out.println(ordineDaInserire);

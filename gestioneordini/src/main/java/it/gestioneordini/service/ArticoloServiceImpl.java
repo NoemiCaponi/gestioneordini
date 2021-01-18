@@ -8,6 +8,7 @@ import it.gestioneordini.dao.EntityManagerUtil;
 import it.gestioneordini.dao.articolo.ArticoloDAO;
 import it.gestioneordini.model.Articolo;
 import it.gestioneordini.model.Categoria;
+import it.gestioneordini.model.Ordine;
 
 public class ArticoloServiceImpl implements ArticoloService {
 
@@ -158,6 +159,31 @@ public class ArticoloServiceImpl implements ArticoloService {
 			return articoloDAO.getEagerCategoria(categoriaInput);
 
 		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			entityManager.close();
+		}
+	
+	}
+
+	@Override
+	public void collegaArticoloEOrdine(Articolo articoloInstance, Ordine ordineInstance) throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+			
+			entityManager.getTransaction().begin();
+			
+			articoloDAO.setEntityManager(entityManager);
+			 articoloInstance.setOrdine(ordineInstance);;
+			 
+			 articoloDAO.update(articoloInstance);
+			 
+			 entityManager.getTransaction().commit();
+
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
 			e.printStackTrace();
 			throw e;
 		} finally {

@@ -19,8 +19,6 @@ public interface OrdineService {
 	public void rimuovi(Ordine ordineInstance) throws Exception;
 
 	public void aggiungiArticolo(Ordine ordineInstance, Articolo articoloInstance) throws Exception;
-	
-	public void creaECollegaOrdineArticolo(Articolo articoloTransientInstance, Ordine ordineTransientInstance) throws Exception;
 
 	public void setOrdineDAO(OrdineDAO ordineDAO);
 	

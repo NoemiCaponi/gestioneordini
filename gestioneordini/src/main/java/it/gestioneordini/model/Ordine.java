@@ -1,6 +1,7 @@
 package it.gestioneordini.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -72,10 +73,22 @@ public class Ordine {
 				+ indirizzoSpedizione + "]";
 	}
 	
-public void addArticoli(Articolo articoloInput) {
-	this.articoli.add(articoloInput);
-}
+//public void addArticoli(Articolo articoloInput) {
+//	this.articoli.add(articoloInput);
+//	articoloInput.getOrdine().addArticoli(this);
+//}
 
+public boolean equals(Object o) {
+	   if (this == o) return true;
+	   if (o == null || getClass() != o.getClass()) return false;
+	   Ordine ordine= (Ordine) o;
+	   return Objects.equals(id, ordine.id);
+	}
+
+@Override
+public int hashCode() {
+   return Objects.hash(id);
+}
 
 
 }

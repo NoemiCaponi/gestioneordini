@@ -43,6 +43,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		if (categoriaInstance == null) {
 			throw new Exception("Valore di input non ammesso");
 		}
+		
 		entityManager.remove(entityManager.merge(categoriaInstance));
 		
 	}
@@ -61,5 +62,4 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	}
 	
 	
-
 }

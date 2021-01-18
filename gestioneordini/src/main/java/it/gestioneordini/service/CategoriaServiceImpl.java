@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import it.gestioneordini.dao.EntityManagerUtil;
+import it.gestioneordini.dao.MyDaoFactory;
+import it.gestioneordini.dao.articolo.ArticoloDAO;
 import it.gestioneordini.dao.categoria.CategoriaDAO;
 import it.gestioneordini.model.Articolo;
 import it.gestioneordini.model.Categoria;
@@ -12,6 +14,7 @@ import it.gestioneordini.model.Categoria;
 public class CategoriaServiceImpl implements CategoriaService {
 	
 	private CategoriaDAO categoriaDAO;
+	private ArticoloDAO articoloDAO;
 
 	@Override
 	public List<Categoria> listAll() throws Exception {
@@ -84,11 +87,23 @@ public class CategoriaServiceImpl implements CategoriaService {
 	public void rimuovi(Categoria categoriaInstance) throws Exception {
 		EntityManager entityManager=EntityManagerUtil.getEntityManager();
 		try {
+				
+			articoloDAO=MyDaoFactory.getArticoloDAOInstance();
 			entityManager.getTransaction().begin();
-			categoriaDAO.setEntityManager(entityManager);
+			
+			articoloDAO.setEntityManager(entityManager);
+			List<Articolo> lista=articoloDAO.findAllByCategoria(categoriaInstance);
+			for(Articolo articoloItem: lista) {
+				articoloItem.getCategorie().remove(categoriaInstance);
+				articoloDAO.update(articoloItem);
+			}
+			
+			categoriaDAO.setEntityManager(entityManager);	
 			categoriaDAO.delete(categoriaInstance);
-
+			
 			entityManager.getTransaction().commit();
+		
+	
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
 			e.printStackTrace();

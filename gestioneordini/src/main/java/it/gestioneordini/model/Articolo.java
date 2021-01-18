@@ -1,6 +1,7 @@
 package it.gestioneordini.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "articolo")
@@ -97,7 +99,17 @@ public class Articolo {
 		this.categorie.remove(categoriaInstance);
 		categoriaInstance.getArticoliCategoria().remove(this);
 	}
-
+	public boolean equals(Object o) {
+		   if (this == o) return true;
+		   if (o == null || getClass() != o.getClass()) return false;
+		   Articolo articolo= (Articolo) o;
+		   return Objects.equals(id, articolo.id);
+		}
+	
+	@Override
+	public int hashCode() {
+	   return Objects.hash(id);
+	}
 
 
 }
